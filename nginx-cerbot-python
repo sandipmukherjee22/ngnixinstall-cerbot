@@ -1,0 +1,21 @@
+sudo apt install certbot python3-certbot-nginx
+sudo nano /etc/nginx/sites-available/example.com
+
+Find the existing server_name line. It should look like this:
+...
+server_name example.com www.example.com;
+...
+
+sudo nginx -t
+sudo systemctl reload nginx
+sudo ufw status
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+sudo ufw status
+
+[For SSL Certificate]
+sudo certbot --nginx -d example.com -d www.example.com
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+
+Link - https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04
